@@ -1,0 +1,19 @@
+server:
+  port: 8081
+
+dubbo:
+  scan:
+    base-packages: io.luxyva.switches.base.web
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+  registries:
+    new:
+      address: spring-cloud://localhost
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: dubborestmetadata
