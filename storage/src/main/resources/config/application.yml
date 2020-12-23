@@ -1,0 +1,55 @@
+server:
+  port: 8085
+
+mybatis-plus:
+  global-config:
+    db-config:
+      table-prefix: t_
+
+spring:
+  shardingsphere:
+    datasource:
+      names: se0, se1
+      se0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/switches_storage_0?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+        username: root
+        password: xxxx
+      se1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/switches_storage_1?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+        username: root
+        password: xxxx
+    rules:
+      sharding:
+        default-database-strategy:
+          standard:
+            sharding-column: user_id
+            sharding-algorithm-name: database-inline
+        binding-tables: t_file_info,t_file_type
+        #broadcast-tables: t_file_type
+        tables:
+          t_file_info:
+            actual-data-nodes: se$->{0..1}.t_file_info_$->{0..1}
+            table-strategy:
+              standard:
+                sharding-column: file_type
+                sharding-algorithm-name: t-file-info-inline
+          t_file_type:
+            actual-data-nodes: se$->{0..1}.t_file_type
+        sharding-algorithms:
+          database-inline:
+            type: INLINE
+            props:
+              algorithm-expression: se$->{user_id % 2}
+          t-file-info-inline:
+            type: INLINE
+            props:
+              algorithm-expression: t_file_info_$->{file_type % 2}
+    props:
+      sql:
+        show: true
+  profiles:
+    active: dev
