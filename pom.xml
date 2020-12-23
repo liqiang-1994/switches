@@ -23,9 +23,9 @@
       <module>base</module>
       <module>connect</module>
       <module>discuss</module>
-      <module>email</module>
       <module>framework</module>
       <module>gateway</module>
+      <module>storage</module>
     </modules>
 
     <licenses>
@@ -52,7 +52,8 @@
       <maven.compiler.source>${java.version}</maven.compiler.source>
       <maven.compiler.target>${java.version}</maven.compiler.target>
       <spring-cloud.version>Hoxton.SR3</spring-cloud.version>
-      <spring-alibaba.version>2.2.1.RELEASE</spring-alibaba.version>
+      <spring-alibaba.version>2.2.3.RELEASE</spring-alibaba.version>
+      <mybatis-plus.version>3.4.1</mybatis-plus.version>
     </properties>
 
     <dependencyManagement>
