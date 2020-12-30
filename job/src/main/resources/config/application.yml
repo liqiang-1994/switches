@@ -1,0 +1,15 @@
+server:
+  port: 8087
+
+elasticjob:
+  tracing:
+    type: RDB
+  reg-center:
+    server-lists: localhost:2181
+    namespace: switches-job
+  jobs:
+    simpleJob:
+      elasticJobClass: io.luxyva.switches.job.work.MySimpleJob
+      cron: 0/5 * * * * ?
+      shardingTotalCount: 3
+      shardingItemParameters: 0=Beijing,1=Shanghai,2=Guangzhou
