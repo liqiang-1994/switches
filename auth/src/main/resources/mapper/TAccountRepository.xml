@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.luxyva.switches.auth.repository.AccountRepository">
+  <resultMap id="BaseResultMap" type="io.luxyva.switches.auth.domain.Account">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="id_no" jdbcType="VARCHAR" property="idNo" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="follower" jdbcType="BIGINT" property="follower" />
+    <result column="followed" jdbcType="BIGINT" property="followed" />
+    <result column="collect" jdbcType="BIGINT" property="collect" />
+    <result column="gender" jdbcType="BIT" property="gender" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="location" jdbcType="INTEGER" property="location" />
+    <result column="birthday" jdbcType="VARCHAR" property="birthday" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="create_dt" jdbcType="TIMESTAMP" property="createDt" />
+    <result column="modify_dt" jdbcType="TIMESTAMP" property="modifyDt" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, real_name, id_no, phone, follower, followed, `collect`, gender, description, 
+    `location`, birthday, avatar_url, create_dt, modify_dt, `password`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_account
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from t_account
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="io.luxyva.switches.auth.domain.Account">
+    insert into t_account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="idNo != null">
+        id_no,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="follower != null">
+        follower,
+      </if>
+      <if test="followed != null">
+        followed,
+      </if>
+      <if test="collect != null">
+        `collect`,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="location != null">
+        `location`,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="avatarUrl != null">
+        avatar_url,
+      </if>
+      <if test="createDt != null">
+        create_dt,
+      </if>
+      <if test="modifyDt != null">
+        modify_dt,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="follower != null">
+        #{follower,jdbcType=BIGINT},
+      </if>
+      <if test="followed != null">
+        #{followed,jdbcType=BIGINT},
+      </if>
+      <if test="collect != null">
+        #{collect,jdbcType=BIGINT},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null">
+        #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDt != null">
+        #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="io.luxyva.switches.auth.domain.Account">
+    update t_account
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        id_no = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="follower != null">
+        follower = #{follower,jdbcType=BIGINT},
+      </if>
+      <if test="followed != null">
+        followed = #{followed,jdbcType=BIGINT},
+      </if>
+      <if test="collect != null">
+        `collect` = #{collect,jdbcType=BIGINT},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=BIT},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        `location` = #{location,jdbcType=INTEGER},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createDt != null">
+        create_dt = #{createDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyDt != null">
+        modify_dt = #{modifyDt,jdbcType=TIMESTAMP},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="io.luxyva.switches.auth.domain.Account">
+    update t_account
+    set `name` = #{name,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      id_no = #{idNo,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      follower = #{follower,jdbcType=BIGINT},
+      followed = #{followed,jdbcType=BIGINT},
+      `collect` = #{collect,jdbcType=BIGINT},
+      gender = #{gender,jdbcType=BIT},
+      description = #{description,jdbcType=VARCHAR},
+      `location` = #{location,jdbcType=INTEGER},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      create_dt = #{createDt,jdbcType=TIMESTAMP},
+      modify_dt = #{modifyDt,jdbcType=TIMESTAMP},
+      `password` = #{password,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

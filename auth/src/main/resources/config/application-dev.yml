@@ -1,0 +1,38 @@
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/auth?useUnicode=true&characterEncoding=utf8&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC&createDatabaseIfNotExist=true
+    username: luxyva
+    password: qwas1234
+    hikari:
+      pool-name: Hikari
+      auto-commit: false
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+
+server:
+  port: 9999
+uaa:
+  key-store:
+    name: config/tls/keystore.p12
+    password: password
+    alias: selfsigned
+  web-client-configuration:
+    # Access Token is valid for 5 minutes
+    access-token-validity-in-seconds: 300
+    # Refresh Token is valid for 7 days
+    refresh-token-validity-in-seconds-for-remember-me: 604800
+    client: web_app
+    secret: changeit
+switches:
+  security:
+    client-authorization:
+      client-id: internal
+      client-secret: internal
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

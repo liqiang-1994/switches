@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: auth
+  profiles:
+    active: dev
+switches:
+  client-app:
+    name: 'authApp'
+
+mybatis-plus:
+  global-config:
+    db-config:
+      table-prefix: t_
+
+
