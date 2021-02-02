@@ -22,10 +22,12 @@
       <module>auth</module>
       <module>base</module>
       <module>connect</module>
-      <module>discuss</module>
       <module>framework</module>
       <module>gateway</module>
       <module>storage</module>
+      <module>search</module>
+      <module>job</module>
+      <module>transaction</module>
     </modules>
 
     <licenses>
