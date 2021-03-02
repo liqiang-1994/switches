@@ -1,0 +1,22 @@
+server:
+  port: 8081
+
+dubbo:
+  scan:
+    base-packages: io.luxyva.switches.base.web
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+  registry:
+    address: nacos://127.0.0.1:8848
+  cloud:
+    subscribed-services: discuss
+  consumer:
+    check: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: dubborestmetadata
