@@ -1,0 +1,73 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: gateway
+  profiles:
+    active: dev
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8089
+      eager: true
+    gateway:
+      enabled: true
+      discovery:
+        locator:
+          lower-case-service-id: true
+#          enabled: true
+#          predicates:
+#            - name: Path
+#              args:
+#                pattern: "'/services/'+serviceId.toLowerCase()+'/**'"
+#          filters:
+#            - name: RewritePath
+#              args:
+#                regexp: "'/services/' + serviceId.toLowerCase() + '/(?<remaining>.*)'"
+#                replacement: "'/${remaining}'"
+
+#      routes:
+#        - id: blog
+#          uri: lb://email
+#          predicates:
+#               匹配路径转发
+      routes:
+        - id: email-service
+          uri: lb://email
+          predicates:
+            - Path=/email/**
+          filters:
+            - RewritePath=/email/(?<path>.*), /$\{path}
+        - id: discuss-service
+          uri: lb://discuss
+          predicates:
+            - Path=/discuss/**
+          filters:
+            - RewritePath=/discuss/(?<path>.*), /$\{path}
+        - id: department-service
+          uri: lb://department-service
+          predicates:
+            - Path=/department/**
+          filters:
+            - RewritePath=/department/(?<path>.*), /$\{path}
+        - id: openapi
+          uri: http://localhost:${server.port}
+          predicates:
+          - Path=/v3/api-docs/**
+          filters:
+          - RewritePath=/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+      default-filters:
+        - JWTRelay
+      httpclient:
+        pool:
+          max-connections: 1000
+  autoconfigure:
+    exclude: io.luxyva.switches.framework.config.CorsFilterConfigure
+
+#debug: true
+springdoc:
+  packages-to-scan: io.luxyva.switches.framework.gateway
+
+switches:
+  client-app:
+    name: gateway
