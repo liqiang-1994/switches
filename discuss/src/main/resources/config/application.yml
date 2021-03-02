@@ -1,0 +1,22 @@
+dubbo:
+  scan:
+    base-packages: io.luxyva.switches.discuss.web.rest
+  protocols:
+    dubbo:
+      name: dubbo
+      port: -1
+  registry:
+    address: nacos://127.0.0.1:8848
+  cloud:
+    subscribed-services: ${provider.application.name}
+  consumer:
+    check: false
+
+provider:
+  application:
+    name: base
+server:
+  port: 8083
+spring:
+  profiles:
+    active: dev
